@@ -599,7 +599,7 @@ end
     all_constraints(model::Model, function_type, set_type)::Vector{VariableRef}
 
 Return a list of all constraints currently in the model where the function
-has type `function_type` and the set has type `set_type`. The constrtaints are
+has type `function_type` and the set has type `set_type`. The constraints are
 ordered by creation time.
 
 See also [`list_of_constraint_types`](@ref).
