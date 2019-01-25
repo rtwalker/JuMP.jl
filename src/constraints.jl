@@ -590,7 +590,7 @@ end
 
 function _error_if_not_concrete_type(t)
     if !isconcretetype(t)
-        error("$t is not a concrete type. Did you miss a type parameter?")
+        error("`$t` is not a concrete type. Did you miss a type parameter?")
     end
     return
 end
@@ -660,12 +660,12 @@ julia> @variable(model, x >= 0, Bin);
 julia> @constraint(model, 2x <= 1);
 
 julia> list_of_constraint_types(model)
-3-element Array{Tuple{DataType,DataType},1}:
+3-element Array{Any,1}:
  (VariableRef, MathOptInterface.ZeroOne)
  (VariableRef, MathOptInterface.GreaterThan{Float64})
  (GenericAffExpr{Float64,VariableRef}, MathOptInterface.LessThan{Float64})
 """
 function list_of_constraint_types(model::Model)
     list = MOI.get(model, MOI.ListOfConstraints())
-    return [(jump_function_type(model, f), s) for (f,s) in list]
+    return Any[(jump_function_type(model, f), s) for (f,s) in list]
 end

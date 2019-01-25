@@ -385,11 +385,13 @@ end
         aff_constraints = all_constraints(model, AffExpr,
                                           MOI.GreaterThan{Float64})
         @test isempty(aff_constraints)
-        # GreaterThan isn't a concrete type.
-        @test_throws ErrorException all_constraints(model, AffExpr,
+        err = ErrorException("`MathOptInterface.GreaterThan` is not a " *
+                             "concrete type. Did you miss a type parameter?")
+        @test_throws err all_constraints(model, AffExpr,
                                                     MOI.GreaterThan)
-        # GenericAffExpr isn't a concrete type.
-        @test_throws ErrorException all_constraints(model, GenericAffExpr,
+        err = ErrorException("`GenericAffExpr` is not a concrete type. " *
+                             "Did you miss a type parameter?")
+        @test_throws err all_constraints(model, GenericAffExpr,
                                                     MOI.ZeroOne)
     end
     # TODO: all_constraints (vector)
